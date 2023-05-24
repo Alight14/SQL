@@ -1,0 +1,72 @@
+#This Database was created to show how data can be relationally queried using JOINS 
+/* Create table about the people and what they do here */
+CREATE TABLE soccer_player  (fullname text PRIMARY KEY, league text, country text, team text);
+
+CREATE TABLE league (name text PRIMARY KEY, country text);
+
+CREATE TABLE team (name text PRIMARY KEY, country text);
+
+INSERT INTO soccer_player (fullname, league, country, team)
+VALUES ("Lionel Messi", "La Liga", "Argentina", "Barcelona"); 
+
+INSERT INTO soccer_player (fullname, league, country, team)
+VALUES ("Christiano Ronaldo", "La Liga", "Portugal", "Barcelona"); 
+
+INSERT INTO soccer_player (fullname, league, country, team)
+VALUES ("Erling Halland", "Premeir League", "Norway", "Manchester City");
+
+INSERT INTO soccer_player (fullname, league, country, team)
+VALUES ("Thomas Muller", "Bundesliga", "Germany", "Bayren Munich"); 
+INSERT INTO soccer_player (fullname, league, country, team)
+VALUES ("Marcus Rashford", "Premeir League", "England", "Manchester United"); 
+
+INSERT INTO soccer_player (fullname, league, country, team)
+VALUES ("Rafael Leao", "Serie A", "Portugal", "AC Milan"); 
+
+INSERT INTO soccer_player (fullname, league, country, team)
+VALUES ("Kylian Mbappe", "Ligue 1", "France", "Paris Saint-Germain"); 
+
+INSERT INTO soccer_player (fullname, league, country, team)
+VALUES ("Jude Bellingham", "Bundesliga", "England", "Dortmund");
+
+INSERT INTO soccer_player (fullname, league, country, team)
+VALUES ("Neymar Jr", "Ligue 1", "Brazil", "Paris Saint-Germain");
+
+INSERT INTO soccer_player (fullname, league, country, team)
+VALUES ("Angel Di Maria", "Serie A", "Argentina", "Juventus");
+
+INSERT INTO league (name, country) VALUES ("Premeir League", "England"); 
+
+INSERT INTO league (name, country) VALUES ("La Liga", "Spain"); 
+
+INSERT INTO league (name, country) VALUES ("Bundesliga", "Germany"); 
+
+INSERT INTO league (name, country) VALUES ("Serie A", "Italy"); 
+
+INSERT INTO league (name, country) VALUES ("Ligue 1", "France"); 
+
+INSERT INTO team (name, country) VALUES ("Barcelona", "Spain");
+
+INSERT INTO team (name, country) VALUES ("Manchester City", "England");
+
+INSERT INTO team (name, country) VALUES ("Manchester United", "England");
+
+INSERT INTO team (name, country) VALUES ("Paris Saint-Germain", "France");
+
+INSERT INTO team (name, country) VALUES ("Bayren Munich", "Germany");
+
+INSERT INTO team (name, country) VALUES ("Dortmund", "Germany");
+
+INSERT INTO team (name, country) VALUES ("Ac Milan", "Italy");
+
+INSERT INTO team (name, country) VALUES ("Juventus", "Italy");
+
+/* Which players are from the same country that they play in */
+SELECT soccer_player.fullname, soccer_player.country AS country_from, league.country AS Country_Playing_In FROM soccer_player
+JOIN league ON soccer_player.country = league.country; 
+
+/* Which players are playing in Bundesliga or Serie A? */ 
+SELECT soccer_player.fullname, league.name FROM soccer_player LEFT JOIN league ON soccer_player.league = league.name
+WHERE league.name = "Bundesliga" OR league.name = "Serie A"
+ORDER BY league.name;
+
