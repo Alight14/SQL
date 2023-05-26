@@ -1,0 +1,35 @@
+-- Database Link: https://bit.io/CharlotteChaze/BreakIntoTech?tab=Data
+
+-- This project was meant to build on my previos knowlegde of SQL concepts while using a different SQL dialect Postgre SQL
+
+-- Shows show_id, title, director and rating 
+
+SELECT netflix_people.show_id, title, director, rating FROM "CharlotteChaze/BreakIntoTech"."netflix_people"
+LEFT JOIN "CharlotteChaze/BreakIntoTech"."netflix_titles_info" ON 
+netflix_people.show_id = netflix_titles_info.show_id; 
+
+-- How many movie titles are there in the database? 
+
+SELECT count(type) AS Num_Movies FROM "CharlotteChaze/BreakIntoTech"."netflix_titles_info" WHERE type = 'Movie';
+
+-- When was the most recent bath of movies/shows to be added to the database? 
+
+SELECT max(date(date_added)) AS Date_Added FROM "CharlotteChaze/BreakIntoTech"."netflix_titles_info"; 
+
+-- List all the movies and tv shows in alphabetical order 
+
+SELECT title FROM "CharlotteChaze/BreakIntoTech"."netflix_titles_info"
+ORDER BY title asc;
+
+-- Who was the director for the movie bright star? 
+
+SELECT titles.title, director FROM "CharlotteChaze/BreakIntoTech"."netflix_people" people 
+JOIN "CharlotteChaze/BreakIntoTech"."netflix_titles_info" titles ON 
+people.show_id = titles.show_id
+WHERE title = 'Bright Star';
+
+-- What is the oldest movie in the database and when was it made? 
+
+SELECT title, release_year FROM "CharlotteChaze/BreakIntoTech"."netflix_titles_info"
+WHERE type = 'Movie'
+ORDER BY release_year asc LIMIT 2;
