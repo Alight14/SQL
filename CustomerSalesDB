@@ -1,0 +1,44 @@
+#This Project was my first Project using SQLLiteStudio
+#This project explores a Customer Sales Database with a table made up of customers, and orders, as well as other tables that include information about sales from pervious months 
+
+
+/* How many orders were placed in January? */ 
+
+SELECT count(orderID) AS Num_Of_Orders From BIT_DB.JanSales 
+WHERE orderID <> '' AND orderID <> 'Order ID';
+
+/* How many of those orders in January were an iPhone? */ 
+
+SELECT count(orderID) AS Num_Of_iPhone From BIT_DB.JanSales 
+WHERE orderID <> '' AND orderID <> 'Order ID' AND product = 'iPhone';
+
+/* Select the customer account numbers for all the orders that were placed in February. */ 
+
+SELECT distinct acctnum FROM BIT_DB.customers 
+INNER JOIN BIT_DB.FebSales ON customers.order_id = FebSales.orderID
+WHERE customers.order_id <> '...' AND customers.order_id <> 'Order ID';
+
+/* Which product was the cheapest one sold in January, and what was the price? */ 
+
+SELECT product, min(price) AS Cheapest_Product FROM BIT_DB.JanSales
+WHERE product <> '' AND price <> ''
+GROUP BY product, price 
+ORDER BY price ASC LIMIT 1;
+
+/* What is the total revenue for each product sold in January? */
+
+SELECT product, round((sum(quantity) * price), 2) AS Revenue FROM BIT_DB.JanSales
+WHERE product <> '' AND product <> 'Product'
+GROUP BY product;
+
+/* Which products were sold in February at 548 Lincoln St, Seattle, WA 98101, how many of each were sold, and what was the total revenue? */
+
+SELECT product, location, sum(quantity) AS Num_Sold, round((sum(quantity) * price), 2) AS Revenue FROM BIT_DB.FebSales
+WHERE  product <> '' AND product <> 'Product' AND location = '548 Lincoln St, Seattle, WA 98101'
+Group By Product;
+
+/* How many customers ordered more than 2 products at a time in February, and what was the average amount spent for those customers? */
+
+SELECT count(distinct acctnum) AS Num_Of_Customers, quantity, round(avg(price * quantity), 2) AS avg_price FROM BIT_DB.customers 
+INNER JOIN BIT_DB.FebSales ON customers.order_id = FebSales.orderID
+WHERE FebSales.quantity > 2 AND FebSales.product <> '' AND FebSales.product <> 'Product';
