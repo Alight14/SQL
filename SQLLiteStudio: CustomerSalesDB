@@ -1,6 +1,7 @@
 #This Project was my first Project using SQLLiteStudio
 #This project explores a Customer Sales Database with a table made up of customers, and orders, as well as other tables that include information about sales from pervious months 
-
+##This was the first project where I had to data clean in order to get my queries to come out correctly. 
+##It was exciting to learn how to filter out Null values, blank values, and values that didn't make sense in order to get the correct result.
 
 /* How many orders were placed in January? */ 
 
