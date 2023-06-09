@@ -50,3 +50,12 @@ WHERE valence IN (
     SELECT valence FROM BIT_DB.Spotifydata
     ORDER BY popularity desc LIMIT 10 
     );
+
+/* For every artist with an average popularity of 90 or above, show their name, their average popularity, and label them as top star */ 
+
+With tempTable AS (
+SELECT artist_name, avg(popularity) As Avg_Popularity FROM Spotifydata
+GROUP BY artist_name
+)
+SELECT artist_name, Avg_Popularity, 'Top Star' As tag FROM tempTable
+WHERE Avg_Popularity >= 90;
